@@ -16,6 +16,17 @@ namespace TimeManager.Launcher
         [STAThread]
         static void Main()
         {
+
+            string _path = @"C:\Users\Krypton\Documents\Полис КАСКО[128].pdf";
+            var a = TimeManager.Launcher.Upload.ItemProject.GetMD5(_path);
+            //"B5A0DFB2AE1DB883D44786515D7C21E2"
+            var b = GlobalSettings.RootProjectPath;
+              
+
+
+
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -23,6 +34,10 @@ namespace TimeManager.Launcher
             SkinManager.EnableFormSkins();
             UserLookAndFeel.Default.SetSkinStyle("DevExpress Style");
             Application.Run(new Main());
+
+
+
+
         }
     }
 }

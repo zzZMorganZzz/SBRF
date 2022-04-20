@@ -15,5 +15,13 @@ namespace TimeManager.Launcher
                 return Environment.UserName;
             }
         }
+
+        public static string RootProjectPath
+        {
+            get 
+            {
+                return Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            }
+        }
     }
 }

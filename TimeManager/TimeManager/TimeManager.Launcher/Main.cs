@@ -15,5 +15,20 @@ namespace TimeManager.Launcher
         {
             InitializeComponent();
         }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            barHeaderItem_UserProfile.Caption = GlobalSettings.CurrentUser;
+
+
+
+            List<TimeManager.Launcher.Upload.Project> List = new List<Upload.Project>();
+            TimeManager.Launcher.Upload.Project a = new Upload.Project() { ProjectName = "123",Owner="flwkejfwlkefwoeif"};
+            TimeManager.Launcher.Upload.Project b = new Upload.Project() { ProjectName = "3123", Owner = "flwkejfwlkefwoeif" };
+            List.Add(a);
+            List.Add(b);
+            bindingSourceProject.DataSource = List;
+
+        }
     }
 }
