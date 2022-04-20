@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace TimeManager.Launcher
 {
-    public partial class Form1 : DevExpress.XtraEditors.XtraForm
+    public partial class Main : DevExpress.XtraEditors.XtraForm
     {
-        public Form1()
+        public Main()
         {
             InitializeComponent();
         }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>ed1e0321-e0d7-46a0-8788-20a9d5eca4c3</ProjectGuid>
+    <ProjectGuid>{5A68503B-0B3F-4A7B-9F90-3D3E99469B86}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TimeManager.Core.DataCore.Test</RootNamespace>

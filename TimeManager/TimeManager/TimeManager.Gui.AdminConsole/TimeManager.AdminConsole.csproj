@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>99bce7b3-cd20-4117-aff5-36d00945da2d</ProjectGuid>
+    <ProjectGuid>{48A85A97-7031-4E8D-83D8-40E9A2DFCE30}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TimeManager.Gui.AdminConsole</RootNamespace>
