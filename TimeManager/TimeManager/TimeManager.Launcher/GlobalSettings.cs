@@ -16,12 +16,17 @@ namespace TimeManager.Launcher
             }
         }
 
-        public static string RootProjectPath
+        public static System.IO.DirectoryInfo RootProjectPathToClient
         {
             get 
             {
-                return Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                return new System.IO.DirectoryInfo(string.Format(@"{0}\{1}",Environment.GetFolderPath(Environment.SpecialFolder.Personal),@"SCIB\ProjectRepository"));
             }
         }
+
+
+        
+
+       
     }
 }

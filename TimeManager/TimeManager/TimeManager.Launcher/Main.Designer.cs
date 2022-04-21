@@ -132,7 +132,7 @@
             this.splitContainerControl1.Panel1.Text = "Panel1";
             this.splitContainerControl1.Panel2.Text = "Panel2";
             this.splitContainerControl1.Size = new System.Drawing.Size(1155, 484);
-            this.splitContainerControl1.SplitterPosition = 1013;
+            this.splitContainerControl1.SplitterPosition = 640;
             this.splitContainerControl1.TabIndex = 2;
             this.splitContainerControl1.Text = "splitContainerControl1";
             // 
@@ -145,14 +145,14 @@
             this.gridControl_ProjectShow.MainView = this.winExplorerView1;
             this.gridControl_ProjectShow.MenuManager = this.ribbonControl1;
             this.gridControl_ProjectShow.Name = "gridControl_ProjectShow";
-            this.gridControl_ProjectShow.Size = new System.Drawing.Size(1013, 484);
+            this.gridControl_ProjectShow.Size = new System.Drawing.Size(640, 484);
             this.gridControl_ProjectShow.TabIndex = 0;
             this.gridControl_ProjectShow.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.winExplorerView1});
             // 
             // bindingSourceProject
             // 
-            this.bindingSourceProject.DataSource = typeof(TimeManager.Launcher.Upload.Project);
+            //this.bindingSourceProject.DataSource = typeof(TimeManager.Launcher.Upload.Project);
             // 
             // winExplorerView1
             // 

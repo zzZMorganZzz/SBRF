@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище RepositoryAppModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Project_Id" />
+          </Key>
+          <Property Name="Project_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Project_Name" Type="varchar(max)" />
+          <Property Name="Project_Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="ProjectItems">
+          <Key>
+            <PropertyRef Name="ProjectItems_Id" />
+          </Key>
+          <Property Name="ProjectItems_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectItems_FileName" Type="varchar(max)" />
+          <Property Name="ProjectItems_Extension" Type="varchar(max)" />
+          <Property Name="ProjectItems_IsStarted" Type="bit" />
+          <Property Name="ProjectItems_MD5" Type="varchar(max)" />
+          <Property Name="ProjectItems_Description" Type="varchar(max)" />
+          <Property Name="ProjectItems_IsCustomeSettings" Type="bit" />
+          <Property Name="ProjectItems_PathToFile" Type="varchar(max)" />
+          <Property Name="ProjectItems_MaskPathToFile" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Version">
+          <Key>
+            <PropertyRef Name="Version_Id" />
+          </Key>
+          <Property Name="Version_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Version_Name" Type="varchar(max)" />
+          <Property Name="Version_Description" Type="varchar(max)" />
+          <Property Name="Project_Id" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="VersionItems">
+          <Key>
+            <PropertyRef Name="ProjectItems_Id" />
+            <PropertyRef Name="Version_Id" />
+          </Key>
+          <Property Name="ProjectItems_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Version_Id" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Version_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="Version" Type="Self.Version" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Project_Id" />
+            </Principal>
+            <Dependent Role="Version">
+              <PropertyRef Name="Project_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VersionItems_ProjectItems">
+          <End Role="ProjectItems" Type="Self.ProjectItems" Multiplicity="1" />
+          <End Role="VersionItems" Type="Self.VersionItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectItems">
+              <PropertyRef Name="ProjectItems_Id" />
+            </Principal>
+            <Dependent Role="VersionItems">
+              <PropertyRef Name="ProjectItems_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VersionItems_Version">
+          <End Role="Version" Type="Self.Version" Multiplicity="1" />
+          <End Role="VersionItems" Type="Self.VersionItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Version">
+              <PropertyRef Name="Version_Id" />
+            </Principal>
+            <Dependent Role="VersionItems">
+              <PropertyRef Name="Version_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище RepositoryAppModelContainer">
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectItems" EntityType="Self.ProjectItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Version" EntityType="Self.Version" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VersionItems" EntityType="Self.VersionItems" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Version_Project" Association="Self.FK_Version_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Version" EntitySet="Version" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VersionItems_ProjectItems" Association="Self.FK_VersionItems_ProjectItems">
+            <End Role="ProjectItems" EntitySet="ProjectItems" />
+            <End Role="VersionItems" EntitySet="VersionItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VersionItems_Version" Association="Self.FK_VersionItems_Version">
+            <End Role="Version" EntitySet="Version" />
+            <End Role="VersionItems" EntitySet="VersionItems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RepositoryAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Project_Id" />
+          </Key>
+          <Property Name="Project_Id" Type="Guid" Nullable="false" />
+          <Property Name="Project_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Project_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Versions" Relationship="Self.FK_Version_Project" FromRole="Project" ToRole="Version" />
+        </EntityType>
+        <EntityType Name="ProjectItem">
+          <Key>
+            <PropertyRef Name="ProjectItems_Id" />
+          </Key>
+          <Property Name="ProjectItems_Id" Type="Guid" Nullable="false" />
+          <Property Name="ProjectItems_FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectItems_Extension" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectItems_IsStarted" Type="Boolean" />
+          <Property Name="ProjectItems_MD5" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectItems_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectItems_IsCustomeSettings" Type="Boolean" />
+          <NavigationProperty Name="Versions" Relationship="Self.VersionItems" FromRole="ProjectItems" ToRole="Version" />
+          <Property Name="ProjectItems_PathToFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectItems_MaskPathToFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Version">
+          <Key>
+            <PropertyRef Name="Version_Id" />
+          </Key>
+          <Property Name="Version_Id" Type="Guid" Nullable="false" />
+          <Property Name="Version_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Version_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Project_Id" Type="Guid" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_Version_Project" FromRole="Version" ToRole="Project" />
+          <NavigationProperty Name="ProjectItems" Relationship="Self.VersionItems" FromRole="Version" ToRole="ProjectItems" />
+        </EntityType>
+        <Association Name="FK_Version_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="Version" Type="Self.Version" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Project_Id" />
+            </Principal>
+            <Dependent Role="Version">
+              <PropertyRef Name="Project_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VersionItems">
+          <End Role="ProjectItems" Type="Self.ProjectItem" Multiplicity="*" />
+          <End Role="Version" Type="Self.Version" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="RepositoryAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="ProjectItems" EntityType="Self.ProjectItem" />
+          <EntitySet Name="Versions" EntityType="Self.Version" />
+          <AssociationSet Name="FK_Version_Project" Association="Self.FK_Version_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Version" EntitySet="Versions" />
+          </AssociationSet>
+          <AssociationSet Name="VersionItems" Association="Self.VersionItems">
+            <End Role="ProjectItems" EntitySet="ProjectItems" />
+            <End Role="Version" EntitySet="Versions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище RepositoryAppModelContainer" CdmEntityContainer="RepositoryAppEntities">
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="RepositoryAppModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Project_Id" ColumnName="Project_Id" />
+                <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+                <ScalarProperty Name="Project_Description" ColumnName="Project_Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectItems">
+            <EntityTypeMapping TypeName="RepositoryAppModel.ProjectItem">
+              <MappingFragment StoreEntitySet="ProjectItems">
+                <ScalarProperty Name="ProjectItems_MaskPathToFile" ColumnName="ProjectItems_MaskPathToFile" />
+                <ScalarProperty Name="ProjectItems_PathToFile" ColumnName="ProjectItems_PathToFile" />
+                <ScalarProperty Name="ProjectItems_Id" ColumnName="ProjectItems_Id" />
+                <ScalarProperty Name="ProjectItems_FileName" ColumnName="ProjectItems_FileName" />
+                <ScalarProperty Name="ProjectItems_Extension" ColumnName="ProjectItems_Extension" />
+                <ScalarProperty Name="ProjectItems_IsStarted" ColumnName="ProjectItems_IsStarted" />
+                <ScalarProperty Name="ProjectItems_MD5" ColumnName="ProjectItems_MD5" />
+                <ScalarProperty Name="ProjectItems_Description" ColumnName="ProjectItems_Description" />
+                <ScalarProperty Name="ProjectItems_IsCustomeSettings" ColumnName="ProjectItems_IsCustomeSettings" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Versions">
+            <EntityTypeMapping TypeName="RepositoryAppModel.Version">
+              <MappingFragment StoreEntitySet="Version">
+                <ScalarProperty Name="Version_Id" ColumnName="Version_Id" />
+                <ScalarProperty Name="Version_Name" ColumnName="Version_Name" />
+                <ScalarProperty Name="Version_Description" ColumnName="Version_Description" />
+                <ScalarProperty Name="Project_Id" ColumnName="Project_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="VersionItems" TypeName="RepositoryAppModel.VersionItems" StoreEntitySet="VersionItems">
+            <EndProperty Name="ProjectItems">
+              <ScalarProperty Name="ProjectItems_Id" ColumnName="ProjectItems_Id" />
+            </EndProperty>
+            <EndProperty Name="Version">
+              <ScalarProperty Name="Version_Id" ColumnName="Version_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
